@@ -202,7 +202,7 @@ def shipDeploy(board, ship_size, type):
     row, column = locationFormat(pos)
     while True:
         try:
-            angle = input("Place it up, down, left, or right? (u,d,l,r): ").upper()
+            angle = input("Would you like to place it up, down, left, or right? (u,d,l,r): ").upper()
             if angle not in "UDLR":
                 print("Please enter either u, l, d, or r.")
             if angle in "UDLR":
