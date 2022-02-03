@@ -5,7 +5,7 @@
 * [Technologies](#technologies)
 * [How To Use](#how-to-use)
 * [Contact](#contact)
-* [Copyright](#Co)
+* [Copyright](#Copyright)
 
 ## General Info
 
