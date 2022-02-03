@@ -1,3 +1,10 @@
+#Created by Elijah Murphy
+# Copyright (c) 2022 Elijah A. Murphy
+# Distributed under the terms of the MIT License. 
+# SPDX-License-Identifier: MIT
+# This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
+
+#REQ LIBRARYS
 import random
 from random import randint
 from time import sleep
@@ -117,6 +124,15 @@ def main():
                     break
 
 def showBoard(board):
+    '''
+    Displays the player board
+ 
+    :param name: board the array that is displayed
+    :param type: list
+    :returns: null
+    :return type: null
+    :raises: null
+    '''
     print("    A B C D E F G H I J")
     print("   ---------------------")
 
@@ -130,6 +146,15 @@ def showBoard(board):
         rownumb += 1
 
 def placeShips(board):
+    '''
+    handles order of user ship placments
+ 
+    :param name: board: the array that is displayed
+    :param type: list
+    :returns: board: the origional array with boats applied
+    :return type: list
+    :raises: null
+    '''
     shipSize = {'Carrier': 5, 'Battleship': 4, 'Cruiser': 3, 'Submarine': 3, 'Destroyer': 2} #size of each ship
     shipList = [['Carrier', 1], ['Battleship', 1], ['Cruiser', 1], ['Submarine', 1], ['Destroyer', 1]]
     
@@ -156,6 +181,15 @@ def placeShips(board):
     return board
     
 def shipDeploy(board, ship_size, type):
+    '''
+    Places ships and makes sure they do not collide or exit the bountry of the array
+ 
+    :param names: | board: the array that is displayed | ship_size: size of ship being placed | type: name of ship being placed
+    :param type:  | list | integer | string
+    :returns: board: The array with the ships placed
+    :return type: list
+    :raises: null
+    '''
     print("Where would you like to put your", str(type) + ", the", str(ship_size), "long boat? (A1)")
     pos = input("Input here: ")
     row, column = locationFormat(pos)
@@ -250,6 +284,15 @@ def shipDeploy(board, ship_size, type):
             return board
 
 def locationFormat(hitcoord):
+    '''
+    Formats alpha-numeric coordinate to row and column variables
+
+    :param name: hitcoord: the user inputted coordinate
+    :param type: string
+    :returns: | row: value of x coordinate on array | column: value of y coordinate on array
+    :return type: | int | int |
+    :raises: null
+    '''
     alphaConvert = {'A': 0, 'B':1, 'C':2,'D':3,'E':4,"F":5,'G':6,'H':7, 'I':8, "J":9}
     colPass = False
     rowPass = False
@@ -273,6 +316,16 @@ def locationFormat(hitcoord):
             hitcoord = list(input("Please input hit coordinates (ex. A1): "))
                  
 def hitShips(board):
+    '''
+    returns amount of hit shots 
+ 
+    :param name: board: the gameboard
+    :param type: array
+    :returns: board: hits: the number of shots that have hit a boat
+    :return type: int
+    :raises: null
+    '''
+    
     hits = 0
     for row in board:
         for column in row:
@@ -281,6 +334,15 @@ def hitShips(board):
     return hits
 
 def generateShips(board):
+    '''
+    handles computer automatic ship generation
+ 
+    :param name: board: the gameboard
+    :param type: list
+    :returns: board: the original array with boats applied
+    :return type: list
+    :raises: null
+    '''
     
     shipLen = [5,4,3,3,2]
     shipAvalible = 5
@@ -340,9 +402,28 @@ def generateShips(board):
     return(board)
 
 def clearTerm(n):
+    '''
+    Simple 1 line function to print a newline to hide unwanted terminal output
+
+    :param name: n: the amount of lines to be cleared
+    :param type: int
+    :returns: board: null
+    :return type: null
+    :raises: null
+    '''
     print("\n" * n)
 
 def saveBoatLayout(board):
+    '''
+    Saves boat placment to a text file to be used in later games
+ 
+    :param name: board: the gameboard
+
+    :param type: list
+    :returns: board OR "fail": sent back to the call for verification purposes
+    :return type: list OR string
+    :raises: null
+    '''
     try:
         board = str(board)
         fileLoc = os.path.realpath(
@@ -359,6 +440,15 @@ def saveBoatLayout(board):
         return "fail"
 
 def pullBoatLayout():
+    '''
+    loads game save file
+ 
+    :param name: null
+    :param type: null
+    :returns: board: the saved game board
+    :return type: list
+    :raises: null
+    '''
     fileLoc = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
     saveFile = open(os.path.join(fileLoc, 'saveFile.txt'), "r")
