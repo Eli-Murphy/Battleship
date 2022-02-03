@@ -18,7 +18,17 @@ This was created using:
 
 ## How To Use
 
-### How to Use with New Dictionary
+### How to Install Required Library's
+1. Install [TQDM](https://github.com/tqdm/tqdm) using terminal:
+ ```
+ pip install tqdm
+ ``` 
+2. Install [AST](https://docs.python.org/3/library/ast.html) using terminal:
+```
+pip install ast
+```
+
+### How to start playing
 1. Run ```battleship.py```
 2. Follow prompts given
 3. Enjoy!
