@@ -1,8 +1,15 @@
-#Created by Elijah Murphy
-# Copyright (c) 2022 Elijah A. Murphy
-# Distributed under the terms of the MIT License. 
-# SPDX-License-Identifier: MIT
-# This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
+"""
+Created by Elijah Murphy on 23 January 2022
+
+Battleship PvE is a game in which the player plays the 1967 board game made by The Milton Bradley Company. 
+The player places their own ships then attempts to sink the computers randomly generated ships before the 
+computer sinks their's. This is part of a project for a CS2 class for high school.
+
+LOGS:
+As of 3 Febuary 2022: Basic game completed. Function documentation completed. More to come.
+
+BUGS:
+"""
 
 #REQ LIBRARYS
 import random
@@ -463,3 +470,10 @@ def pullBoatLayout():
 
 if __name__ == '__main__':
     main()
+
+
+
+# Copyright (c) 2022 Elijah A. Murphy
+# Distributed under the terms of the MIT License. 
+# SPDX-License-Identifier: MIT
+# This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
