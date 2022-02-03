@@ -5,6 +5,7 @@
 * [Technologies](#technologies)
 * [How To Use](#how-to-use)
 * [Contact](#contact)
+* [Copyright](#Co)
 
 ## General Info
 
@@ -52,3 +53,10 @@ Please contact me at...
 <a href="https://stackoverflow.com/users/14735733/eli-murphy">
   <img src="https://stackoverflow.com/users/flair/14735733.png?theme=dark" width="208" height="58" alt="profile for Eli Murphy at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Eli Murphy at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
 </a>
+
+## Copyright
+
+Copyright (c) 2022 Elijah A. Murphy
+Distributed under the terms of the MIT License. 
+SPDX-License-Identifier: MIT
+This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
