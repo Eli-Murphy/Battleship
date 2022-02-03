@@ -4,6 +4,8 @@
 * [General Info](#general-info)
 * [Technologies](#technologies)
 * [How To Use](#how-to-use)
+* [Bug Notes](#bug-notes)
+* [To Be Added Features](#to-be-added-features)
 * [Contact](#contact)
 * [Copyright](#Copyright)
 
