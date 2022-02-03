@@ -4,6 +4,7 @@
 * [General Info](#general-info)
 * [Technologies](#technologies)
 * [How To Use](#how-to-use)
+* [Contact](#contact)
 
 ## General Info
 
