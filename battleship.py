@@ -7,6 +7,7 @@ computer sinks their's. This is part of a project for a CS2 class for high schoo
 
 LOGS:
 As of 3 Febuary 2022: Basic game completed. Function documentation completed. More to come.
+As of 9 Febuary 2022: Player AI upgraded, sound FX, HTML documentation created
 
 BUGS:
 """
@@ -16,8 +17,15 @@ import random
 from random import randint
 from time import sleep
 from tqdm import tqdm
+from playsound import playsound
 import os
 import ast
+
+#SOUND FILE PATHS
+realPath = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+print(realPath)
+explosion = os.path.join(realPath + '\Sound Files\Explode.mp3')
+missSound = os.path.join(realPath + '\Sound Files\splash.mp3')
 
 
 def main():
@@ -86,11 +94,13 @@ def main():
                 showBoard(guess_board)
             elif hidden_board[row][column] == "X":
                 print("Congradulations! You hit an enemy boat!")
+                playsound(explosion)
                 guess_board[row][column] = "X"
                 showBoard(guess_board)
                 turn = "bot"
             else:
                 print("\nSorry, you missed!")
+                playsound(missSound)
                 guess_board[row][column] = "Ø"
                 showBoard(guess_board)
                 turn = "bot"
@@ -476,4 +486,4 @@ if __name__ == '__main__':
 # Copyright (c) 2022 Elijah A. Murphy
 # Distributed under the terms of the MIT License. 
 # SPDX-License-Identifier: MIT
-# This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
+# This code is part of the Battleship project (https://github.com/Eli-Murphy/Bcd Documentsattleship)
