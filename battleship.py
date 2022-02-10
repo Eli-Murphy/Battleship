@@ -22,14 +22,14 @@ import os
 import ast
 
 #SOUND FILE PATHS
-realPath = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+realPath = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) #finds the location of this file so it works on all computers 
 print(realPath)
-explosion = os.path.join(realPath + '\Sound Files\Explode.mp3')
+explosion = os.path.join(realPath + '\Sound Files\explosion.wav')
 missSound = os.path.join(realPath + '\Sound Files\splash.mp3')
 
 
 def main():
-    hidden_board = [["~"] * 10 for x in range(10)]
+    hidden_board = [["~"] * 10 for x in range(10)] #Single line to make a 10x10 array
     guess_board = [["~"] * 10 for x in range(10)]
     player_board = [["~"] * 10 for x in range(10)]
 
@@ -47,7 +47,7 @@ def main():
 
             showBoard(player_board)
 
-            player_board = placeShips(player_board)
+            player_board = shipManager(player_board)
 
             while True:
                 saveBoard = input("Would you like to save your board layout for future games? (y/n): ").lower()
@@ -89,34 +89,34 @@ def main():
             position = input("Please input shot position (A1): ")
             clearTerm(100)
             row, column = locationFormat(position)
-            if guess_board[row][column] == "Ø":
+            if guess_board[row][column] in "ØX":                                                #If the coordinate was already shot
                 print("You already guessed that spot!")
                 showBoard(guess_board)
-            elif hidden_board[row][column] == "X":
+            elif hidden_board[row][column] == "X":                                              #If the guess coordinate hits a boat on the hidden board
                 print("Congradulations! You hit an enemy boat!")
+                guess_board[row][column] = "X"                                                  #Sets guess board as a hit
+                showBoard(guess_board)
                 playsound(explosion)
-                guess_board[row][column] = "X"
-                showBoard(guess_board)
                 turn = "bot"
-            else:
-                print("\nSorry, you missed!")
+            else:                                                                               #If the guess coordinate misses on the hidden board
+                print("\nSorry, you missed!") 
+                guess_board[row][column] = "Ø"                                                  #Sets the guess board as a miss
+                showBoard(guess_board)
                 playsound(missSound)
-                guess_board[row][column] = "Ø"
-                showBoard(guess_board)
                 turn = "bot"
-            if hitShips(guess_board) == 17:
+            if hitShips(guess_board) == 17:                                                     #If all ships have been hit, a total of 17 tiles
                 print("You hit them all, good job!")
                 showBoard(guess_board)
                 break
         while turn == "bot":
             turnMade = False
-            for i in tqdm(range(0, 20), unit =" ticks", desc ="The enemy is thinking..."):
+            for i in tqdm(range(0, 20), unit =" ticks", desc ="The enemy is thinking..."):      #Uses tqdm to create a loading bar
                 sleep(.1)
             while turnMade == False:
                 clearTerm(100)
-                row = randint(0,9)
+                row = randint(0,9)                                                              #Makes random coordinate guess
                 col = randint(0,9)
-                if player_board[row][col] == "#":
+                if player_board[row][col] == "#":                                               #If the guess coordinate hits
                     player_board[row][col] = "X"
                     print("Your board: \n")
                     showBoard(player_board)
@@ -125,9 +125,9 @@ def main():
                     showBoard(guess_board)
                     turnMade = True
                     turn = "player"
-                elif player_board[row][col] == "X":
+                elif player_board[row][col] in "XØ":                                            #Retries if already shot there
                     pass
-                elif player_board[row][col] == "~":
+                elif player_board[row][col] == "~":                                             #If the guess coordiate misses
                     player_board[row][col] = "Ø"
                     print("Your sea: \n")
                     showBoard(player_board)
@@ -136,7 +136,7 @@ def main():
                     print("\nThe computer missed!\n")
                     turnMade = True
                     turn = "player"
-                if hitShips(player_board) == 17:
+                if hitShips(player_board) == 17:                                                #If all the ships
                     print("All your ships have been sunk. Better luck next time!")
                     break
 
@@ -155,14 +155,14 @@ def showBoard(board):
 
     rownumb = 1
     for r in board:
-        if rownumb == 10:
+        if rownumb == 10:                                        #If the number of the line is 10, it will remove one space due to the extra digit
             space = " "
         else:
             space = "  "
-        print("%d|%s|" % (rownumb, space + "|".join(r)))
+        print("%d|%s|" % (rownumb, space + "|".join(r)))         #formats and prints the row of the board
         rownumb += 1
 
-def placeShips(board):
+def shipManager(board):
     '''
     handles order of user ship placments
  
@@ -172,22 +172,21 @@ def placeShips(board):
     :return type: list
     :raises: null
     '''
-    shipSize = {'Carrier': 5, 'Battleship': 4, 'Cruiser': 3, 'Submarine': 3, 'Destroyer': 2} #size of each ship
+    
+    #A dictionary to store value of each boat
+    shipSize = {'Carrier': 5, 'Battleship': 4, 'Cruiser': 3, 'Submarine': 3, 'Destroyer': 2} 
+
+    #An array to store amount of ships avalible
     shipList = [['Carrier', 1], ['Battleship', 1], ['Cruiser', 1], ['Submarine', 1], ['Destroyer', 1]]
-    
-    
-    
 
-    for x in shipList: #place ships
-        r = 0
+    for x in shipList: 
 
-        while x[1] > 0: #check there's ships available
-            r += 1
+        while x[1] > 0:                                                 #If the ship selected is avalible
             shipType = x[0]
             ship_size = shipSize[x[0]]
             boatMade = False
             while boatMade == False:
-                testValidity = shipDeploy(board, ship_size, shipType)
+                testValidity = shipDeploy(board, ship_size, shipType)   #Calls function to place ships
                 if testValidity == None:
                     pass
                 else:
@@ -207,12 +206,13 @@ def shipDeploy(board, ship_size, type):
     :return type: list
     :raises: null
     '''
-    print("Where would you like to put your", str(type) + ", the", str(ship_size), "long boat? (A1)")
+
+    print("Where would you like to put your", str(type) + ", the", str(ship_size), "long boat? (A1)") #Prints the and length of the ship being placed
     pos = input("Input here: ")
-    row, column = locationFormat(pos)
+    row, column = locationFormat(pos)                                                                 #Formats alpha-neumeric coordinate to row and column
     while True:
         try:
-            angle = input("Place it up, down, left, or right? (u,d,l,r): ").upper()
+            angle = input("Place it up, down, left, or right? (u,d,l,r): ").upper()                   #Gets orientation
             if angle not in "UDLR":
                 print("Please enter either u, l, d, or r.")
             if angle in "UDLR":
@@ -222,28 +222,28 @@ def shipDeploy(board, ship_size, type):
             pass
     shipsMade = 0
     while shipsMade != 5:
-        if angle == "U":
+        if angle == "U":                                                                              #Code for each direction is the same except for collision checking numbers and placment numbers
             colission = False
             buildCount = 0
-            if 0 <= (row+1 + int(-1 * ship_size)) <= 9:
+            if 0 <= (row+1 + int(-1 * ship_size)) <= 9:                                               #Checks to see if the length of the ship will collide with the end of the array
                 for i in range(ship_size):
                     buildCount += 1
-                    if board[int(row)-i][int(column)] == "#": 
-                        colission = True
+                    if board[int(row)-i][int(column)] == "#":                                         #If ship collides with another ship
+                        colission = True                                                              #Marks a collision and will retry
                         pass
             else:
                 colission = True
             
             if colission is False:
                 for k in range(buildCount):
-                    board[int(row)-k][int(column)] = "#"
+                    board[int(row)-k][int(column)] = "#"                                              #Creates ship
                 clearTerm(100)
                 showBoard(board)
         
-        if angle == "D":
+        if angle == "D":                                                                              #See above documentation
             colission = False
             buildCount = 0
-            if row + int(ship_size) <= 9: #WORKS
+            if row + int(ship_size) <= 9: 
                 for i in range(ship_size):
                     buildCount += 1
                     if board[int(row)+i][int(column)] == "#": 
@@ -257,7 +257,7 @@ def shipDeploy(board, ship_size, type):
                 clearTerm(100)
                 showBoard(board)
         
-        if angle == "R":
+        if angle == "R":                                                                              #See above documentation
             colission = False
             buildCount = 0
             if 0 <= (column-1 + int(ship_size)) <= 9: #WORKS
@@ -275,7 +275,7 @@ def shipDeploy(board, ship_size, type):
                 clearTerm(100)
                 showBoard(board)
 
-        if angle == "L":
+        if angle == "L":                                                                              #See above documentation
             colission = False
             buildCount = 0
             if column - int(ship_size) <= 9:
@@ -310,14 +310,14 @@ def locationFormat(hitcoord):
     :return type: | int | int |
     :raises: null
     '''
-    alphaConvert = {'A': 0, 'B':1, 'C':2,'D':3,'E':4,"F":5,'G':6,'H':7, 'I':8, "J":9}
+    alphaConvert = {'A': 0, 'B':1, 'C':2,'D':3,'E':4,"F":5,'G':6,'H':7, 'I':8, "J":9}                                           #Dict with letter's numerical value
     colPass = False
     rowPass = False
     while True:
-        if len(hitcoord) == 2 or len(hitcoord) == 3 and hitcoord[0] in "ABCDEFGHIJabcdefghij" and hitcoord[1] in "1234567890":
+        if len(hitcoord) == 2 or len(hitcoord) == 3 and hitcoord[0] in "ABCDEFGHIJabcdefghij" and hitcoord[1] in "1234567890":  #If the input is 2-3 characters long and contains only alphabtical characters            
             column = hitcoord[0].upper()
             colPass = True
-            if len(hitcoord) == 2:    
+            if len(hitcoord) == 2:                                                                                              #Seperated 1-9 and 10 due to digit lengths
                 row = int(hitcoord[1])
                 rowPass = True
             else:
@@ -327,7 +327,7 @@ def locationFormat(hitcoord):
                 print("Please input a row between 1-10.")
                 rowPass = False
         if colPass and rowPass:
-            return int(row)-1, alphaConvert[column]
+            return int(row)-1, alphaConvert[column]                                                                             #Returns row and column value
         else:
             print("Please input a coordinate (A-J1-10)")
             hitcoord = list(input("Please input hit coordinates (ex. A1): "))
@@ -369,17 +369,8 @@ def generateShips(board):
     for i in range(shipAvalible):
         boatMade = False
 
-        #REGULAR VAR STATMENTS
-         
-
-        #DEBUG VAR STATMENTS
-        #col = 6
-        #row = 3
-        #direction = "horizontal"
-        
-
         while boatMade == False:
-            direction = random.choice(directionposibilities)   
+            direction = random.choice(directionposibilities)            #
             col = randint(0,9)
             row = randint(0,9)
    
@@ -486,4 +477,4 @@ if __name__ == '__main__':
 # Copyright (c) 2022 Elijah A. Murphy
 # Distributed under the terms of the MIT License. 
 # SPDX-License-Identifier: MIT
-# This code is part of the Battleship project (https://github.com/Eli-Murphy/Bcd Documentsattleship)
+# This code is part of the Battleship project (https://github.com/Eli-Murphy/Battleship)
