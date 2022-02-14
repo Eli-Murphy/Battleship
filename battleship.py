@@ -267,7 +267,7 @@ def shipDeploy(board, ship_size, type):
         if angle == "R":                                                                              #See above documentation
             colission = False
             buildCount = 0
-            if 0 <= (column-1 + int(ship_size)) <= 9: #WORKS
+            if 0 <= (column-1 + int(ship_size)) <= 9: 
                 for i in range(ship_size):
                     buildCount += 1
                     if board[int(row)][int(column)+i] == "#": 
@@ -377,27 +377,27 @@ def generateShips(board):
         boatMade = False
 
         while boatMade == False:
-            direction = random.choice(directionposibilities)            #
+            direction = random.choice(directionposibilities)            #Random ship placements
             col = randint(0,9)
             row = randint(0,9)
    
             if direction == "vertical":
                 buildCount = 0
-                if row + int(shipLen[i]) <= 9: 
+                if row + int(shipLen[i]) <= 9:                          #Checks to see if ship will wrap
                     colission = False
-                    for j in range(0, int(shipLen[i])):
+                    for j in range(0, int(shipLen[i])):                 
                         buildCount += 1
-                        if board[int(row+j)][int(col)] == "X": 
+                        if board[int(row+j)][int(col)] == "X":          #Checks to see if ship collides
                             colission = True
                             pass
                     if not colission:
                         for k in range(buildCount):
-                            board[int(row+k)][int(col)] = "X"
+                            board[int(row+k)][int(col)] = "X"           #Print Ships
                         boatMade = True
                         shipAvalible = shipAvalible - 1
                 
-            if direction == "horizontal":
-                if col + int(shipLen[i]) <= 9: #check ship within boundaries BROKEN
+            if direction == "horizontal":                               #If statment above's documentation is the same as below
+                if col + int(shipLen[i]) <= 9: 
                     colission = False
                     buildCount = 0
                     for j in range(0, int(shipLen[i])):
@@ -440,13 +440,13 @@ def saveBoatLayout(board):
     :raises: null
     '''
     try:
-        board = str(board)
-        fileLoc = os.path.realpath(
-        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        board = str(board)                                                          #Converts array to string for document saving
+        fileLoc = os.path.realpath(                                                 
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))                       #Gets the local path to this file
         
 
-        saveFile = open(os.path.join(fileLoc, 'saveFile.txt'), "w")
-        saveFile.write(board)
+        saveFile = open(os.path.join(fileLoc, 'saveFile.txt'), "w")                 #Opens save file to be written in
+        saveFile.write(board)                                                       #Writes board to file
         saveFile.close()
         print("\nSaved!\n")
         return board
@@ -465,10 +465,10 @@ def pullBoatLayout():
     :raises: null
     '''
     fileLoc = os.path.realpath(
-    os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    saveFile = open(os.path.join(fileLoc, 'saveFile.txt'), "r")
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))                           #Gets the local path to this file
     try:
-        board = ast.literal_eval(saveFile.read())
+        saveFile = open(os.path.join(fileLoc, 'saveFile.txt'), "r")                 #Reads in the save file
+        board = ast.literal_eval(saveFile.read())                                   #Reads the text in the file as the array it is and not the string it is stored as
         return board
     except:
         return "fail"
