@@ -472,14 +472,9 @@ def pullBoatLayout():
         return board
     except:
         return "fail"
-    
-
-
 
 if __name__ == '__main__':
     main()
-
-
 
 # Copyright (c) 2022 Elijah A. Murphy
 # Distributed under the terms of the MIT License. 
