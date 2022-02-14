@@ -10,6 +10,13 @@ As of 3 Febuary 2022: Basic game completed. Function documentation completed. Mo
 As of 9 Febuary 2022: Player AI upgraded, sound FX, HTML documentation created
 
 BUGS:
+
+BONUS:
+1. Make the dots into shapes (like battleship).
+3. Make the dots move one box in a random direction every round
+4. Tell the user how close to the nearest dot their shot was.
+5. Play sounds for ‘hit’ & ‘miss’ & ‘kaboom’
+
 """
 
 #REQ LIBRARYS
