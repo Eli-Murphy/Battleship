@@ -30,7 +30,10 @@ This was created using:
 ```
 pip install ast
 ```
-
+3. Install [playsound](https://pypi.org/project/playsound/) using terminal:
+```
+pip install playsound==1.12
+```
 ### How to start playing
 1. Run ```battleship.py```
 2. Follow prompts given
