@@ -16,6 +16,7 @@ BONUS:
 3. Make the dots move one box in a random direction every round
 4. Tell the user how close to the nearest dot their shot was.
 5. Play sounds for ‘hit’ & ‘miss’ & ‘kaboom’
+*. Saves a ship layout for future use and retrives it
 
 """
 
