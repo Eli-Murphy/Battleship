@@ -5,7 +5,6 @@
 * [Technologies](#technologies)
 * [How To Use](#how-to-use)
 * [Bug Notes](#bug-notes)
-* [To Be Added Features](#to-be-added-features)
 * [Contact](#contact)
 * [Copyright](#Copyright)
 
@@ -30,7 +29,10 @@ This was created using:
 ```
 pip install ast
 ```
-
+3. Install [playsound](https://pypi.org/project/playsound/) using terminal:
+```
+pip install playsound==1.12
+```
 ### How to start playing
 1. Run ```battleship.py```
 2. Follow prompts given
@@ -38,15 +40,7 @@ pip install ast
 
 
 ## Bug Notes
-There are no known bugs at the moment, however there may be unfinished user input validation.
-
-## To-Be-Added Features
-* More appealing UI
-* AI Shooting
-  * Difficulty levels
-  * Significant increase in complexity, possibly will never be implemented
-* Function Documentation 
-
+No Known Bugs as of April 8th, 2022
 ## Contact
 
 Please contact me at...
