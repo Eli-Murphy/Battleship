@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "..\\ASCLstrings"
+		},
+		{
+			"path": "..\\CS1"
+		},
+		{
+			"path": "..\\CS2"
+		},
+		{
+			"path": "..\\RecursiveIdentities"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\WordleCalculator"
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Python: Current File",
+				"type": "python",
+				"request": "launch",
+				"program": "${file}",
+				"console": "integratedTerminal"
+			}
+		]
+	}
+}
